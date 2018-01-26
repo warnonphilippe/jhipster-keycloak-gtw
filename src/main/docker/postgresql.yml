@@ -1,0 +1,11 @@
+version: '2'
+services:
+    gtw-postgresql:
+        image: postgres:9.6.5
+        # volumes:
+        #     - ~/volumes/jhipster/gtw/postgresql/:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=gtw
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432
