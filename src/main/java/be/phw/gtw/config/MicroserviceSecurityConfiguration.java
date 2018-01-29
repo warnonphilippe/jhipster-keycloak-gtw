@@ -12,6 +12,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -39,7 +40,7 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
 
     private final SecurityProblemSupport problemSupport;
 
-    public MicroserviceSecurityConfiguration(ResourceServerProperties resourceServerProperties,
+    public MicroserviceSecurityConfiguration(@Qualifier("multiResourceServerProperties") ResourceServerProperties resourceServerProperties,
         SecurityProblemSupport problemSupport) {
         this.resourceServerProperties = resourceServerProperties;
         this.problemSupport = problemSupport;
@@ -71,6 +72,7 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
     public RequestMatcher authorizationHeaderRequestMatcher() {
         return new RequestHeaderRequestMatcher("Authorization");
     }
+
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
