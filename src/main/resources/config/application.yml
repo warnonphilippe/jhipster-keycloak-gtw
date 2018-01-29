@@ -120,7 +120,7 @@ security:
             token-info-uri: http://localhost:9080/auth/realms/{realm}/protocol/openid-connect/token/introspect
             prefer-token-info: false
             jwt:
-                key-uri: http://localhost:9080/auth/realms/jhipster
+                key-uri: http://localhost:9080/auth/realms/{realm}
 
 server:
     session:
