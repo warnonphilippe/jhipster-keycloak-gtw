@@ -3,8 +3,10 @@ package be.phw.gtw.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 
+import java.io.Serializable;
+
 @ConfigurationProperties(prefix = "security.oauth2.client")
-public class MultiAuthorizationCodeResourceDetails extends AuthorizationCodeResourceDetails {
+public class MultiAuthorizationCodeResourceDetails extends AuthorizationCodeResourceDetails implements Serializable {
 
     private String tenant = "jhipster";
 

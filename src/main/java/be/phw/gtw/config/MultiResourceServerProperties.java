@@ -2,7 +2,9 @@ package be.phw.gtw.config;
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 
-public class MultiResourceServerProperties extends ResourceServerProperties {
+import java.io.Serializable;
+
+public class MultiResourceServerProperties extends ResourceServerProperties implements Serializable{
 
     private String tenant = "jhipster";
 
