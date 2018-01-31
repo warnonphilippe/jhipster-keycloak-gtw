@@ -8,14 +8,12 @@ import java.io.Serializable;
 @ConfigurationProperties(prefix = "security.oauth2.client")
 public class MultiAuthorizationCodeResourceDetails extends AuthorizationCodeResourceDetails implements Serializable {
 
-    private String tenant = "jhipster";
-
     public MultiAuthorizationCodeResourceDetails() {
     }
 
     @Override
     public String getAccessTokenUri() {
-        String uri = super.getAccessTokenUri().replace("{realm}", tenant);
+        String uri = super.getAccessTokenUri().replace("{realm}", getTenant());
         System.out.println("getAccessTokenUri " + uri);
         return uri;
     }
@@ -23,8 +21,13 @@ public class MultiAuthorizationCodeResourceDetails extends AuthorizationCodeReso
     @Override
     public String getUserAuthorizationUri() {
         String uri = super.getUserAuthorizationUri();
-        uri = uri.replace("{realm}", tenant);
+        uri = uri.replace("{realm}", getTenant());
         System.out.println("getUserAuthorizationUri " + uri);
         return uri;
+    }
+
+    private String getTenant(){
+        //TODO : get selected tenant
+        return "jhipster";
     }
 }

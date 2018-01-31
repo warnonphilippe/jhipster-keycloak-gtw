@@ -14,6 +14,7 @@ import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import io.github.jhipster.security.AjaxLogoutSuccessHandler;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 @EnableOAuth2Sso
 @Configuration
