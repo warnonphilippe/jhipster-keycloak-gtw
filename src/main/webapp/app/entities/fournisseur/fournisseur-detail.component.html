@@ -1,0 +1,82 @@
+
+<div *ngIf="fournisseur">
+    <h2><span>Fournisseur</span> {{fournisseur.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Matricule</span></dt>
+        <dd>
+            <span>{{fournisseur.matricule}}</span>
+        </dd>
+        <dt><span>Nom</span></dt>
+        <dd>
+            <span>{{fournisseur.nom}}</span>
+        </dd>
+        <dt><span>Prenom</span></dt>
+        <dd>
+            <span>{{fournisseur.prenom}}</span>
+        </dd>
+        <dt><span>Num Nat</span></dt>
+        <dd>
+            <span>{{fournisseur.numNat}}</span>
+        </dd>
+        <dt><span>Num Entr Etranger</span></dt>
+        <dd>
+            <span>{{fournisseur.numEntrEtranger}}</span>
+        </dd>
+        <dt><span>Rue</span></dt>
+        <dd>
+            <span>{{fournisseur.rue}}</span>
+        </dd>
+        <dt><span>Numero</span></dt>
+        <dd>
+            <span>{{fournisseur.numero}}</span>
+        </dd>
+        <dt><span>Code Postal</span></dt>
+        <dd>
+            <span>{{fournisseur.codePostal}}</span>
+        </dd>
+        <dt><span>Ville</span></dt>
+        <dd>
+            <span>{{fournisseur.ville}}</span>
+        </dd>
+        <dt><span>Country</span></dt>
+        <dd>
+            <span>{{fournisseur.country}}</span>
+        </dd>
+        <dt><span>Rue Envoi</span></dt>
+        <dd>
+            <span>{{fournisseur.rueEnvoi}}</span>
+        </dd>
+        <dt><span>Numero Envoi</span></dt>
+        <dd>
+            <span>{{fournisseur.numeroEnvoi}}</span>
+        </dd>
+        <dt><span>Code Postal Envoi</span></dt>
+        <dd>
+            <span>{{fournisseur.codePostalEnvoi}}</span>
+        </dd>
+        <dt><span>Ville Envoi</span></dt>
+        <dd>
+            <span>{{fournisseur.villeEnvoi}}</span>
+        </dd>
+        <dt><span>Pays Envoi</span></dt>
+        <dd>
+            <span>{{fournisseur.paysEnvoi}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'fournisseur/'+ fournisseur.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

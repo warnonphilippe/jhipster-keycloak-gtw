@@ -1,4 +1,4 @@
-package be.phw.gtw.config;
+package be.phw.gtw.multitenancy;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;

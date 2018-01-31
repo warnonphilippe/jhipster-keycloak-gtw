@@ -1,0 +1,44 @@
+
+<div *ngIf="bonCommande">
+    <h2><span>Bon Commande</span> {{bonCommande.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Date</span></dt>
+        <dd>
+            <span>{{bonCommande.date | date:'medium'}}</span>
+        </dd>
+        <dt><span>Numero</span></dt>
+        <dd>
+            <span>{{bonCommande.numero}}</span>
+        </dd>
+        <dt><span>Type</span></dt>
+        <dd>
+            <span>{{bonCommande.type}}</span>
+        </dd>
+        <dt><span>Statut</span></dt>
+        <dd>
+            <span>{{bonCommande.statut}}</span>
+        </dd>
+        <dt><span>Fournisseur</span></dt>
+        <dd>
+            <div *ngIf="bonCommande.fournisseur">
+                <a [routerLink]="['/fournisseur', bonCommande.fournisseur?.id]">{{bonCommande.fournisseur?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'bon-commande/'+ bonCommande.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

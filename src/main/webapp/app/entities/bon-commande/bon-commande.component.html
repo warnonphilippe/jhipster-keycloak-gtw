@@ -1,0 +1,78 @@
+<div>
+    <h2>
+        <span>Bon Commandes</span>
+        <button class="btn btn-primary float-right jh-create-entity create-bon-commande" [routerLink]="['/', { outlets: { popup: ['bon-commande-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Bon Commande
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="bonCommandes">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="date"><span>Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="numero"><span>Numero</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="type"><span>Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="statut"><span>Statut</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="fournisseur.id"><span>Fournisseur</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let bonCommande of bonCommandes ;trackBy: trackId">
+                <td><a [routerLink]="['../bon-commande', bonCommande.id ]">{{bonCommande.id}}</a></td>
+                <td>{{bonCommande.date | date:'medium'}}</td>
+                <td>{{bonCommande.numero}}</td>
+                <td>{{bonCommande.type}}</td>
+                <td>{{bonCommande.statut}}</td>
+                <td>
+                    <div *ngIf="bonCommande.fournisseur">
+                        <a [routerLink]="['../fournisseur', bonCommande.fournisseur?.id ]" >{{bonCommande.fournisseur?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../bon-commande', bonCommande.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'bon-commande/'+ bonCommande.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'bon-commande/'+ bonCommande.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="bonCommandes && bonCommandes.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>
