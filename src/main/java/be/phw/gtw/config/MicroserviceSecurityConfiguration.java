@@ -41,7 +41,7 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
 
     private final SecurityProblemSupport problemSupport;
 
-    public MicroserviceSecurityConfiguration(@Qualifier("multiResourceServerProperties") ResourceServerProperties resourceServerProperties,
+    public MicroserviceSecurityConfiguration(ResourceServerProperties resourceServerProperties,
         SecurityProblemSupport problemSupport) {
         this.resourceServerProperties = resourceServerProperties;
         this.problemSupport = problemSupport;
