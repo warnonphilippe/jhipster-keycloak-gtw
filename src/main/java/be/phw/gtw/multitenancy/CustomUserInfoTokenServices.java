@@ -64,6 +64,7 @@ public class CustomUserInfoTokenServices implements ResourceServerTokenServices 
         if (this.userInfoEndpointUrl.contains(TenantUtils.TENANT_PATH_VAR)){
             this.userInfoEndpointUrl = this.userInfoEndpointUrl.replace(TenantUtils.TENANT_PATH_VAR, TenantContext.getCurrentTenant());
             this.logger.debug("inject current tenant in userinfo : " + this.userInfoEndpointUrl);
+            TenantContext.clear();
         }
         Map<String, Object> map = this.getMap(this.userInfoEndpointUrl, accessToken);
         if (map.containsKey("error")) {
