@@ -120,7 +120,7 @@ security:
             token-info-uri: http://localhost:9080/auth/realms/{realm}/protocol/openid-connect/token/introspect
             prefer-token-info: false
             jwt:
-                key-uri: http://localhost:9080/auth/realms/{realm}
+                key-uri: http://localhost:9080/auth/realms/jhipster #la key doit être connue au démarrage, soit on le construit plus tard, soit on a une key commune sur le serveur
 
 server:
     session:

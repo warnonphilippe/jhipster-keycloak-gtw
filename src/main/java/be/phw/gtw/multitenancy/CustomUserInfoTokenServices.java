@@ -61,9 +61,8 @@ public class CustomUserInfoTokenServices implements ResourceServerTokenServices 
     @Cacheable("oAuth2Authentication")
     public OAuth2Authentication loadAuthentication(String accessToken) throws AuthenticationException, InvalidTokenException {
         //injecter le tenant courant
-        String tenant =  TenantContext.getCurrentTenant();
-        if (this.userInfoEndpointUrl.contains("{tenant}")){
-            this.userInfoEndpointUrl.replace("{tenant}", TenantContext.getCurrentTenant());
+        if (this.userInfoEndpointUrl.contains(TenantUtils.TENANT_PATH_VAR)){
+            this.userInfoEndpointUrl = this.userInfoEndpointUrl.replace(TenantUtils.TENANT_PATH_VAR, TenantContext.getCurrentTenant());
             this.logger.debug("inject current tenant in userinfo : " + this.userInfoEndpointUrl);
         }
         Map<String, Object> map = this.getMap(this.userInfoEndpointUrl, accessToken);
