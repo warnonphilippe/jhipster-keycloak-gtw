@@ -12,9 +12,12 @@ public class TenantFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String tenantId = "jhipster";
-        //TODO : extraire le tenantId du param tenant de l'url (si url : login?tenant=tenantId)
-        TenantContext.setCurrentTenant(tenantId);
+        //extraire le tenantId du param tenant de l'url (si url : login?tenant=tenantId)
+        String[] realms = request.getParameterValues("realm");
+        if (realms != null && realms.length > 0){
+            TenantContext.setCurrentTenant(realms[0]);
+        }
+
         chain.doFilter(request, response);
     }
 
