@@ -1,5 +1,7 @@
 package be.phw.gtw.config;
 
+import be.phw.gtw.multitenancy.TenantFilter;
+import be.phw.gtw.multitenancy.CustomUserInfoTokenServices;
 import be.phw.gtw.security.AuthoritiesConstants;
 import be.phw.gtw.security.oauth2.*;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,7 +14,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -21,7 +22,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.web.util.matcher.RequestHeaderRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.filter.CorsFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 import java.util.Map;
@@ -41,6 +42,7 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
 
     private final SecurityProblemSupport problemSupport;
 
+    //ATTENTION, PATCH de la config Jhipster, on utilise multiResourceServerProperties
     public MicroserviceSecurityConfiguration(@Qualifier("multiResourceServerProperties") ResourceServerProperties resourceServerProperties,
         SecurityProblemSupport problemSupport) {
         this.resourceServerProperties = resourceServerProperties;
@@ -49,9 +51,10 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
 
     @Bean
     @Primary
-    public UserInfoTokenServices userInfoTokenServices(PrincipalExtractor principalExtractor, AuthoritiesExtractor authoritiesExtractor) {
-        UserInfoTokenServices userInfoTokenServices =
-            new CachedUserInfoTokenServices(resourceServerProperties.getUserInfoUri(), resourceServerProperties.getClientId());
+    //ATTENTION, PATCH de la config Jhipster, on utilise CustomUserInfoTokenServices
+    public CustomUserInfoTokenServices userInfoTokenServices(PrincipalExtractor principalExtractor, AuthoritiesExtractor authoritiesExtractor) {
+        CustomUserInfoTokenServices userInfoTokenServices =
+            new CustomUserInfoTokenServices(resourceServerProperties.getUserInfoUri(), resourceServerProperties.getClientId());
 
         userInfoTokenServices.setPrincipalExtractor(principalExtractor);
         userInfoTokenServices.setAuthoritiesExtractor(authoritiesExtractor);
@@ -75,6 +78,7 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
     }
 
 
+    //TODO :ajouter le TenantFilter, si marche pas, essayer dans WebConfigurer
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
@@ -84,6 +88,7 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
             .authenticationEntryPoint(problemSupport)
             .accessDeniedHandler(problemSupport)
         .and()
+            .addFilterBefore(new TenantFilter(), CorsFilter.class)
             .headers()
             .frameOptions()
             .disable()

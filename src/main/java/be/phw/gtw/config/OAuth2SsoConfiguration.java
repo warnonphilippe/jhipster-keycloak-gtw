@@ -1,20 +1,19 @@
 package be.phw.gtw.config;
 
+import be.phw.gtw.multitenancy.TenantFilter;
 import be.phw.gtw.security.AuthoritiesConstants;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import io.github.jhipster.security.AjaxLogoutSuccessHandler;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.filter.CorsFilter;
 
 @EnableOAuth2Sso
 @Configuration
@@ -36,10 +35,12 @@ public class OAuth2SsoConfiguration extends WebSecurityConfigurerAdapter {
         http
             .csrf()
             .disable()
+            .addFilterBefore(new TenantFilter(), CorsFilter.class)
             .headers()
             .frameOptions()
             .disable()
         .and()
+
             .logout()
             .logoutUrl("/api/logout")
             .logoutSuccessHandler(ajaxLogoutSuccessHandler())

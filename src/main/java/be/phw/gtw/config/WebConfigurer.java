@@ -1,5 +1,6 @@
 package be.phw.gtw.config;
 
+import be.phw.gtw.multitenancy.TenantFilter;
 import io.github.jhipster.config.JHipsterConstants;
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.web.filter.CachingHttpHeadersFilter;
@@ -66,6 +67,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
             initH2Console(servletContext);
         }
         log.info("Web application fully configured");
+        initCustomFilters(servletContext);
     }
 
     /**
@@ -204,5 +206,12 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
     @Autowired(required = false)
     public void setMetricRegistry(MetricRegistry metricRegistry) {
         this.metricRegistry = metricRegistry;
+    }
+
+    //ATTENTION, Patch de la config jhipster pour memo du tenant
+    private void initCustomFilters(ServletContext servletContext){
+        FilterRegistration.Dynamic tenantFilter = servletContext.addFilter("tenantFilter",
+            new TenantFilter());
+
     }
 }

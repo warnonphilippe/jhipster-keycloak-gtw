@@ -8,12 +8,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 
-public class CustomFilter extends GenericFilterBean {
+public class TenantFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String tenantId = "jhipster2";
-        //TenantContext.setCurrentTenant(tenantId);
+        String tenantId = "jhipster";
+        TenantContext.setCurrentTenant(tenantId);
         chain.doFilter(request, response);
     }
 
