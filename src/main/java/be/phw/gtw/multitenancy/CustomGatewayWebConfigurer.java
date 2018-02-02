@@ -11,13 +11,13 @@ import javax.servlet.*;
  * Configuration of web application with Servlet 3.0 APIs.
  */
 @Configuration
-public class CustomWebConfigurer implements ServletContextInitializer {
+public class CustomGatewayWebConfigurer implements ServletContextInitializer {
 
     private final Logger log = LoggerFactory.getLogger(be.phw.gtw.config.WebConfigurer.class);
 
     private final Environment env;
 
-    public CustomWebConfigurer(Environment env) {
+    public CustomGatewayWebConfigurer(Environment env) {
         this.env = env;
     }
 

@@ -1,7 +1,7 @@
 package be.phw.gtw.config;
 
 import be.phw.gtw.multitenancy.TenantFilter;
-import be.phw.gtw.multitenancy.CustomUserInfoTokenServices;
+import be.phw.gtw.multitenancy.CustomGatewayUserInfoTokenServices;
 import be.phw.gtw.security.AuthoritiesConstants;
 import be.phw.gtw.security.oauth2.*;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -50,10 +50,10 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
 
     @Bean
     @Primary
-    //ATTENTION, PATCH de la config Jhipster, on utilise CustomUserInfoTokenServices
-    public CustomUserInfoTokenServices userInfoTokenServices(PrincipalExtractor principalExtractor, AuthoritiesExtractor authoritiesExtractor) {
-        CustomUserInfoTokenServices userInfoTokenServices =
-            new CustomUserInfoTokenServices(resourceServerProperties.getUserInfoUri(), resourceServerProperties.getClientId());
+    //ATTENTION, PATCH de la config Jhipster, on utilise CustomGatewayUserInfoTokenServices
+    public CustomGatewayUserInfoTokenServices userInfoTokenServices(PrincipalExtractor principalExtractor, AuthoritiesExtractor authoritiesExtractor) {
+        CustomGatewayUserInfoTokenServices userInfoTokenServices =
+            new CustomGatewayUserInfoTokenServices(resourceServerProperties.getUserInfoUri(), resourceServerProperties.getClientId());
 
         userInfoTokenServices.setPrincipalExtractor(principalExtractor);
         userInfoTokenServices.setAuthoritiesExtractor(authoritiesExtractor);

@@ -26,7 +26,7 @@ import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.util.Assert;
 
-public class CustomUserInfoTokenServices implements ResourceServerTokenServices {
+public class CustomGatewayUserInfoTokenServices implements ResourceServerTokenServices {
     protected final Log logger = LogFactory.getLog(this.getClass());
     private String userInfoEndpointUrl;
     private String clientId;
@@ -35,7 +35,7 @@ public class CustomUserInfoTokenServices implements ResourceServerTokenServices 
     private AuthoritiesExtractor authoritiesExtractor = new FixedAuthoritiesExtractor();
     private PrincipalExtractor principalExtractor = new FixedPrincipalExtractor();
 
-    public CustomUserInfoTokenServices(String userInfoEndpointUrl, String clientId) {
+    public CustomGatewayUserInfoTokenServices(String userInfoEndpointUrl, String clientId) {
         this.userInfoEndpointUrl = userInfoEndpointUrl;
         this.clientId = clientId;
     }
