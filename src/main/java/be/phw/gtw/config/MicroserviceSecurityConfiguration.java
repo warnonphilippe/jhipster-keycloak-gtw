@@ -42,8 +42,7 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
 
     private final SecurityProblemSupport problemSupport;
 
-    //ATTENTION, PATCH de la config Jhipster, on utilise multiResourceServerProperties
-    public MicroserviceSecurityConfiguration(@Qualifier("multiResourceServerProperties") ResourceServerProperties resourceServerProperties,
+    public MicroserviceSecurityConfiguration(ResourceServerProperties resourceServerProperties,
         SecurityProblemSupport problemSupport) {
         this.resourceServerProperties = resourceServerProperties;
         this.problemSupport = problemSupport;
@@ -78,7 +77,6 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
     }
 
 
-    //TODO :ajouter le TenantFilter, si marche pas, essayer dans WebConfigurer
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
