@@ -16,7 +16,15 @@ export class LoginService {
         if (port === ':9000') {
             port = ':8080';
         }
-        location.href = '//' + location.hostname + port + '/login?realm=jhipster';
+        location.href = '//' + location.hostname + port + '/login?realm=jhipster1';
+    }
+
+    login2() {
+        let port = (location.port ? ':' + location.port : '');
+        if (port === ':9000') {
+            port = ':8080';
+        }
+        location.href = '//' + location.hostname + port + '/login?realm=jhipster2';
     }
 
     logout() {

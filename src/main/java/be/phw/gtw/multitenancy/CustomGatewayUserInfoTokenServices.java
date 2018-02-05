@@ -59,14 +59,17 @@ public class CustomGatewayUserInfoTokenServices implements ResourceServerTokenSe
     }
 
     @Cacheable("oAuth2Authentication")
-    public OAuth2Authentication loadAuthentication(String accessToken) throws AuthenticationException, InvalidTokenException {
+    public synchronized OAuth2Authentication loadAuthentication(String accessToken) throws AuthenticationException, InvalidTokenException {
         //injecter le tenant courant
+        String url = null;
         if (this.userInfoEndpointUrl.contains(TenantUtils.TENANT_PATH_VAR)){
-            this.userInfoEndpointUrl = this.userInfoEndpointUrl.replace(TenantUtils.TENANT_PATH_VAR, TenantContext.getCurrentTenant());
-            this.logger.debug("inject current tenant in userinfo : " + this.userInfoEndpointUrl);
+            url = this.userInfoEndpointUrl.replace(TenantUtils.TENANT_PATH_VAR, TenantContext.getCurrentTenant());
+            this.logger.debug("inject current tenant in userinfo : " + url);
             TenantContext.clear();
+        } else {
+            url = this.userInfoEndpointUrl;
         }
-        Map<String, Object> map = this.getMap(this.userInfoEndpointUrl, accessToken);
+        Map<String, Object> map = this.getMap(url, accessToken);
         if (map.containsKey("error")) {
             if (this.logger.isDebugEnabled()) {
                 this.logger.debug("userinfo returned error: " + map.get("error"));
