@@ -9,9 +9,6 @@ import java.util.Optional;
 @ConfigurationProperties(prefix = "security.oauth2.client")
 public class MultiAuthorizationCodeResourceDetails extends AuthorizationCodeResourceDetails implements Serializable {
 
-    public MultiAuthorizationCodeResourceDetails() {
-    }
-
     @Override
     public String getAccessTokenUri() {
         String uri = super.getAccessTokenUri().replace(TenantUtils.TENANT_PATH_VAR, getTenant());

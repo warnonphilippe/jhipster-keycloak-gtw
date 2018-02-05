@@ -21,7 +21,7 @@ public class OAuth2SsoConfiguration extends WebSecurityConfigurerAdapter {
 
     private final RequestMatcher authorizationHeaderRequestMatcher;
 
-    public OAuth2SsoConfiguration(@Qualifier("authorizationHeaderRequestMatcher") RequestMatcher authorizationHeaderRequestMatcher) {
+    public OAuth2SsoConfiguration(@Qualifier("authorizationHeaderRequestMatcher") RequestMatcher authorizationHeaderRequestMatcher ) {
         this.authorizationHeaderRequestMatcher = authorizationHeaderRequestMatcher;
     }
 

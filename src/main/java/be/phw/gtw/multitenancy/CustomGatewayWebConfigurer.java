@@ -28,9 +28,7 @@ public class CustomGatewayWebConfigurer implements ServletContextInitializer {
     }
 
     private void initCustomFilters(ServletContext servletContext){
-        FilterRegistration.Dynamic tenantFilter = servletContext.addFilter("tenantFilter",
-            new TenantFilter());
-
+        //FilterRegistration.Dynamic tenantFilter = servletContext.addFilter("tenantFilter", new TenantFilter());
     }
 }
 

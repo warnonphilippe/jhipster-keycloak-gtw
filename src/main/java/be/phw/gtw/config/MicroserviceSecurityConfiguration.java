@@ -39,11 +39,10 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
     private static final String OAUTH2_AUTHORITIES_ATTRIBUTE = "roles";
 
     private final ResourceServerProperties resourceServerProperties;
-
     private final SecurityProblemSupport problemSupport;
 
     public MicroserviceSecurityConfiguration(ResourceServerProperties resourceServerProperties,
-        SecurityProblemSupport problemSupport) {
+                                             SecurityProblemSupport problemSupport) {
         this.resourceServerProperties = resourceServerProperties;
         this.problemSupport = problemSupport;
     }

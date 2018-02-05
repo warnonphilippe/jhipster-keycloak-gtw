@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
@@ -65,7 +66,7 @@ public class CustomGatewayUserInfoTokenServices implements ResourceServerTokenSe
         if (this.userInfoEndpointUrl.contains(TenantUtils.TENANT_PATH_VAR)){
             url = this.userInfoEndpointUrl.replace(TenantUtils.TENANT_PATH_VAR, TenantContext.getCurrentTenant());
             this.logger.debug("inject current tenant in userinfo : " + url);
-            TenantContext.clear();
+            //TenantContext.clear();
         } else {
             url = this.userInfoEndpointUrl;
         }
