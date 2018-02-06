@@ -22,6 +22,8 @@ import {
     PageRibbonComponent,
     ErrorComponent
 } from './layouts';
+import {TenantInterceptor} from './blocks/interceptor/tenant.interceptor';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 @NgModule({
     imports: [

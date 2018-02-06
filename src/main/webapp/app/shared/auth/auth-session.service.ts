@@ -14,7 +14,18 @@ export class AuthServerProvider {
         // logout from the server
         return this.http.post(SERVER_API_URL + 'api/logout', {}).map((response: Response) => {
             // to get a new csrf token call the api
-            this.http.get(SERVER_API_URL + 'api/account').subscribe(() => {}, () => {});
+            // https://github.com/jhipster/generator-jhipster/issues/965
+            this.http.get(SERVER_API_URL + 'api/account')
+                .map((resp: Response) => {
+                    console.log("+++++++++++++++++++++++++++++++++++")
+                    console.log(resp.headers)
+                    console.log("+++++++++++++++++++++++++++++++++++")
+                })
+                .subscribe(() => {
+                    console.log('api/account OK')
+                }, () => {
+                    console.log('api/account ERROR')
+                });
             return response;
         });
     }

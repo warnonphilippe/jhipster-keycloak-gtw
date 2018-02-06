@@ -6,6 +6,7 @@ import { StateStorageService } from '../../shared/auth/state-storage.service';
 import { AuthExpiredInterceptor } from './auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from './errorhandler.interceptor';
 import { NotificationInterceptor } from './notification.interceptor';
+import {TenantInterceptor} from './tenant.interceptor';
 
 export function interceptableFactory(
     backend: XHRBackend,
@@ -14,6 +15,10 @@ export function interceptableFactory(
     stateStorageService: StateStorageService,
     eventManager: JhiEventManager
 ) {
+    console.log('interceptableFactory .................................')
+    console.log('interceptableFactory .................................')
+    console.log('interceptableFactory .................................')
+    console.log('interceptableFactory .................................')
     return new JhiInterceptableHttp(
         backend,
         defaultOptions,
@@ -21,7 +26,8 @@ export function interceptableFactory(
         new AuthExpiredInterceptor(injector, stateStorageService),
             // Other interceptors can be added here
             new ErrorHandlerInterceptor(eventManager),
-            new NotificationInterceptor(injector)
+            new NotificationInterceptor(injector),
+            new TenantInterceptor()
         ]
     );
 }
