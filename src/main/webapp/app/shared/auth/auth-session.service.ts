@@ -12,6 +12,7 @@ export class AuthServerProvider {
 
     logout(): Observable<any> {
         // logout from the server
+        // ne delog pas du keycloak, https://github.com/jhipster/generator-jhipster/issues/6555
         return this.http.post(SERVER_API_URL + 'api/logout', {})
             /*
             .map((response: Response) => {
