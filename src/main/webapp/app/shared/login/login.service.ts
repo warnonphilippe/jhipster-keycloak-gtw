@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Principal } from '../auth/principal.service';
 import { AuthServerProvider } from '../auth/auth-session.service';
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class LoginService {
@@ -16,7 +17,17 @@ export class LoginService {
         if (port === ':9000') {
             port = ':8080';
         }
-        location.href = '//' + location.hostname + port + '/login?realm=jhipster';
+
+        let tenant = location.hostname.split('.', 1).shift()
+        if (tenant === 'localhost'){
+            tenant = 'jhipster'
+        }
+
+        let to = '//' + location.hostname + port + '/login?realm=' + tenant.trim()
+        location.href = to
+        // location.href = '//' + location.hostname + port + '/login?realm=jhipster'
+        //location.href = '//' + location.hostname + port + '/login?realm=' + tenant
+
     }
 
     login2() {
@@ -28,7 +39,16 @@ export class LoginService {
     }
 
     logout() {
-        this.authServerProvider.logout().subscribe();
-        this.principal.authenticate(null);
+        this.authServerProvider.logout().subscribe()
+        this.principal.authenticate(null)
+    }
+
+    logoutObs() : Observable<boolean>{
+        return new Observable (obs => {
+            this.authServerProvider.logout()
+            this.principal.authenticate(null)
+            obs.next(true)
+            obs.complete()
+        })
     }
 }

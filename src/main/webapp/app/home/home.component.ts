@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.principal.identity().then((account) => {
+            console.log('account:', account)
             this.account = account;
         });
         this.registerAuthenticationSuccess();

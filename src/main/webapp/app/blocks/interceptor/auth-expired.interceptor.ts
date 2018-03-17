@@ -18,7 +18,11 @@ export class AuthExpiredInterceptor extends JhiHttpInterceptor {
 
     responseIntercept(observable: Observable<Response>): Observable<Response> {
         return <Observable<Response>> observable.catch((error) => {
-            if (error.status === 401 && error.text() !== '' && error.json().path && !error.json().path.includes('/api/account')) {
+            console.log('///////////////////////// AuthExpiredInterceptor  ///////////////////////////')
+            if (error.status === 401 && error.text() !== ''
+                // && error.json().path && !error.json().path.includes('/api/account')
+                ) {
+                console.log('/////////////////////////  401 ///////////////////////////')
                 const destination = this.stateStorageService.getDestinationState();
                 if (destination !== null) {
                     const to = destination.destination;
@@ -30,7 +34,10 @@ export class AuthExpiredInterceptor extends JhiHttpInterceptor {
                     this.stateStorageService.storeUrl('/');
                 }
                 const loginService: LoginService = this.injector.get(LoginService);
-                loginService.login();
+                loginService.login()
+                //loginService.logoutObs().subscribe(
+                //    ok => loginService.login()
+                //);
             }
             return Observable.throw(error);
         });
